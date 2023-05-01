@@ -7,7 +7,7 @@ const todoHandler = require('./routeHandler/todoHandler');
 app.use(express.json());
 
 // connect to mongodb database
-monogoose.connect('mongodb://localhost/todo',
+monogoose.connect('mongodb://127.0.0.1/todo',
     {
         useNewUrlParser: true,
         useUnifiedTopology: true
