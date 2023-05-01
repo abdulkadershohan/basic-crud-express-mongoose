@@ -55,9 +55,13 @@ router.post('/all', async (req, res) => {
 router.patch('/:todoId', async (req, res) => {
     const todoId = req.params.todoId;
     try {
-        const updatedTodo = await Todo.updateOne(
+        const updatedTodo = await Todo.findOneAndUpdate(
             { _id: todoId },
-            { $set: req.body }
+            { $set: req.body },
+            {
+                new: true,
+                useFindAndModify: false,
+            },
         );
         res.status(200).json(updatedTodo);
     } catch (error) {
@@ -70,7 +74,9 @@ router.delete('/:todoId', async (req, res) => {
     const todoId = req.params.todoId;
     try {
         const deleteTodo = await Todo.deleteOne({ _id: todoId });
-        res.status(200).json(deleteTodo);
+        res.status(200).json({
+            message: 'Todo deleted successfully',
+        });
     } catch (error) {
         res.status(500).json({ message: error });
     }
